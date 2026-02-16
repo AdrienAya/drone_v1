@@ -1,0 +1,35 @@
+# IDEs
+.settings/
+.cproject
+.project
+.mxproject
+*.launch
+
+# Build files
+Debug/
+Release/
+Build/
+*.o
+*.d
+*.su
+*.list
+*.map
+*.elf
+*.bin
+*.hex
+
+# STM32CubeIDE generated
+*.ioc.bak
+*.tmp
+.metadata/
+RemoteSystemsTempFiles/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Misc
+*.log
+*.bak
+*~
