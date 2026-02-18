@@ -126,11 +126,12 @@ void RCC_Enable(RCC_Periphal_t peripheral);
 void RCC_Disable(RCC_Periphal_t peripheral);
 void RCC_State_update(Drone_State_t state);
 //I2C HAL
-void I2C_Timing(I2C_t i2c);
-void I2C_Init(GPIO_Init_t * gpio);
-void I2C_Start(I2C_t i2c);
-void I2C_Send_adrr(I2C_Adrr_t adrr);s
-void I2C_Stop(I2C_t i2c);
-void I2C_Read(uint8_t *buf, uint8_t size);
-void I2C_Nack(void);
-uint8_t I2C_Read(I2C_t i2c);
+void I2C_Timing(I2C_t i2c); // Configure I2C timing for 400kHz
+void I2C_Init(GPIO_Init_t * gpio); // Initialize I2C peripheral with GPIO configuration
+void I2C_Start(I2C_t i2c); // Generate I2C start condition
+void I2C_Send_adrr(I2C_t i2c, I2C_Adrr_t adrr); // Send I2C slave address
+void I2C_Stop(I2C_t i2c); // Generate I2C stop condition
+void I2C_Write(I2C_t i2c, uint8_t *buf, uint8_t size); // Write data to I2C bus
+void I2C_Read(I2C_t i2c, uint8_t *buf, uint8_t size); // Read data from I2C bus
+void I2C_Nack(I2C_t i2c); // Send NACK after reading data from I2C bus
+

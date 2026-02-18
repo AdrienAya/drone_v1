@@ -69,3 +69,11 @@ void I2C_Nack(I2C_t i2c){
 	bus->CR2 |= I2C_CR2_NACK;
 }
 	
+void I2C_Write(I2C_t i2c, uint8_t *buf, uint8_t size){
+
+	I2C_TypeDef *bus = I2C_Get(i2c);
+	for(uint8_t i = 0; i<size; i++){
+		while(!(bus->ISR & I2C_ISR_TXIS));
+		bus->TXDR = buf[i];
+	}
+}
