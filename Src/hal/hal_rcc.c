@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 
-void RCC_ON(RCC_Periphal_t peripheral){
+void RCC_Enable(RCC_Periphal_t peripheral){
 
 	switch(peripheral){
 
@@ -69,7 +69,7 @@ void RCC_ON(RCC_Periphal_t peripheral){
 	}
 }
 
-RCC_OFF(RCC_Periphal_t peripheral){
+void RCC_Disable(RCC_Periphal_t peripheral){
 
 	switch(peripheral){
 
