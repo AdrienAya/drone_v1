@@ -6,6 +6,7 @@
 #define I2C_TIMING_100KHZ    0x00C0EAFF
 #define I2C_TIMING_400KHZ    0x00602173
 
+
 typedef struct {
     // Acceleration (in g)
     float accel_x;
@@ -71,6 +72,19 @@ typedef enum {
 
 } RCC_Peripheral_t;
 
+typedef enum {
+// uart only synchrone no clock 
+    uart4,
+    uart5,
+    uart7,
+    uart8,
+ // usart synchrone with clock   
+    usart1,
+    usart2,
+    usart3,
+    usart6,
+}UART_T;
+
 typedef enum{
 
 	i2c1,
@@ -134,4 +148,10 @@ void I2C_Stop(I2C_t i2c); // Generate I2C stop condition
 void I2C_Write(I2C_t i2c, uint8_t *buf, uint8_t size); // Write data to I2C bus
 void I2C_Read(I2C_t i2c, uint8_t *buf, uint8_t size); // Read data from I2C bus
 void I2C_Nack(I2C_t i2c); // Send NACK after reading data from I2C bus
-
+// UART HAL
+void UART_Init(GPIO_Init_t * gpio); // Initialize UART peripheral with GPIO configuration
+void UART_BaudRate(UART_t uart, uint32_t Baudrate, uint32_t ClockRate); // Configure UART baud rate
+void UART_Enable(UART_t uart); // Enable UART peripheral
+void UART_Read(UART_t uart, uint8_t *buf, uint8_t size); // Read data from UART
+void UART_Write(UART_t uart, uint8_t *buf, uint8_t size); // Write data to UART
+void UART_DMA_Enable(UART_t uart); // Enable UART DMA for transmission
