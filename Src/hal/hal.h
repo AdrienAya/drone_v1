@@ -184,3 +184,11 @@ void UART_Write(UART_t uart, uint8_t *buf, uint8_t size); // Write data to UART
 void UART_DMA_Enable(UART_t uart); // Enable UART DMA for transmission
 //SPI
 void SPI_Init(GPIO_Init_t * sck,GPIO_Init_t * mosi,GPIO_Init_t * miso,GPIO_Init_t * cs);
+void SPI_Enable(SPI_t spi);
+void SPI_DMA(SPI_t spi);
+void SPI_Config(SPI_t spi);
+void SPI_Prescaler(SPI_t spi, PSC_division_t division);
+void SPI_CS_High(GPIO_Init_t *cs);
+void SPI_CS_Low(GPIO_Init_t *cs);
+void SPI_Transfert(SPI_t spi, uint8_t *tx_buff, uint8_t *rx_buff, uint8_t size);
+void SPI_Write(SPI_t spi, uint8_t *buf, uint8_t size);
