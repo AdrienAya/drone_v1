@@ -165,3 +165,26 @@ void RCC_State_update(Drone_State_t state){
 		 RCC->APB1ENR &= ~(1<<18);
 
 }
+
+void RCC_SPI_Enable(SPI_t spi){
+	switch(spi){
+	case spi1:
+		 RCC->APB2ENR |= (1<<12);
+		 break;
+	case spi2:
+		 RCC->APB1ENR |= (1<<14);
+		 break;
+	case spi3:
+		 RCC->APB1ENR |= (1<<15);
+		 break;
+	case spi4:
+		 RCC->APB2ENR |= (1<<13);
+		 break;
+	case spi5:
+		 RCC->APB2ENR |= (1<<20);
+		 break;
+    case spi6:
+		 RCC->APB2ENR |= (1<<21);
+		 break;
+	}
+}

@@ -22,6 +22,30 @@ typedef struct {
     float temp;
 } MPU6050_data_t;
 
+typedef enum{
+
+    psc1 = 0x00, // Division by 2, 120MHz/2 = 60MHz
+    psc2 = 0x01, // Division by 4   120MHz/4 = 30MHz
+    psc3 = 0x02, // Division by 8   120MHz/8 = 15MHz
+    psc4 = 0x03, // Division by 16  120MHz/16 = 7.5MHz
+    psc5 = 0x04, // Division by 32  120MHz/32 = 3.75MHz
+    psc6 = 0x05, //  Division by 64 120MHz/64 = 1.875MHz
+    psc7 = 0x06, // Division by 128 120MHz/128 = 937.5kHz
+    psc8 = 0x07, // Division by 256 120MHz/256 = 468.75kHz
+
+}PSC_division_t;
+
+typedef enum{
+
+    spi1,
+    spi2,
+    spi3,
+    spi4,
+    spi5,
+    spi6,
+
+}SPI_t;
+
 typedef enum {
     HAL_OK = 0,
     HAL_ERROR = 1,
@@ -43,6 +67,7 @@ typedef enum {
     HMC5883L = 0x1E,  // Barometer
     MPU6050 = 0x76 , // Accelerometer and Gyroscope
     MS5611 = 0x77 // Accelerometer and Gyroscope
+
 }I2C_Adrr_t;
 
 typedef enum {
@@ -69,6 +94,7 @@ typedef enum {
     // APB2 - SPI, Timers
     RCC_TIM1,       // Bit 0 (moteurs)
     RCC_SPI1,       // Bit 12 (SD card)
+    RCC_SPI2,
 
 } RCC_Peripheral_t;
 
@@ -83,7 +109,7 @@ typedef enum {
     usart2,
     usart3,
     usart6,
-}UART_T;
+}UART_t;
 
 typedef enum{
 
@@ -136,9 +162,10 @@ void GPIO_Set_Pull(GPIO_Init_t * gpio, GPIO_Pull_t pull_mode);
 void GPIO_Set_OutputType (GPIO_Init_t * gpio, GPIO_OutputType_t output_mode);
 void GPIO_Set_AFR(GPIO_Init_t * gpio);
 //RCC HAL
-void RCC_Enable(RCC_Periphal_t peripheral);
-void RCC_Disable(RCC_Periphal_t peripheral);
-void RCC_State_update(Drone_State_t state);
+void RCC_Enable(RCC_Periphal_t peripheral); // Enable clock for a specific peripheral
+void RCC_Disable(RCC_Periphal_t peripheral); // Disable clock for a specific peripheral
+void RCC_State_update(Drone_State_t state); // Update RCC state based on drone state (Debug, Takeoff, Flight, etc.)
+void RCC_SPI_Enable(SPI_t spi); //SPI HAL
 //I2C HAL
 void I2C_Timing(I2C_t i2c); // Configure I2C timing for 400kHz
 void I2C_Init(GPIO_Init_t * gpio); // Initialize I2C peripheral with GPIO configuration
@@ -155,3 +182,5 @@ void UART_Enable(UART_t uart); // Enable UART peripheral
 void UART_Read(UART_t uart, uint8_t *buf, uint8_t size); // Read data from UART
 void UART_Write(UART_t uart, uint8_t *buf, uint8_t size); // Write data to UART
 void UART_DMA_Enable(UART_t uart); // Enable UART DMA for transmission
+//SPI
+void SPI_Init(GPIO_Init_t * sck,GPIO_Init_t * mosi,GPIO_Init_t * miso,GPIO_Init_t * cs);
