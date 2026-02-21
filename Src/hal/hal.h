@@ -98,8 +98,88 @@ typedef enum {
 
 } RCC_Peripheral_t;
 
-typedef enum {
+// SPI peripherals
+
+typedef enum{
+
+    spi1,
+    spi2,
+    spi3,
+    spi4,
+    spi5,
+    spi6,
+
+}SPI_t;
+
+// DMA peripherals
+typedef enum{
+
+    dma1,
+    dma2,
+
+}DMA_t;
+
+// DMAMUX1 and DMAMUX2 are used for DMA channel request mapping and configuration
+
+typedef enum{
+
+    dmamux1,
+    dmamux2,
+
+}DMAMUX_t;
+
 // uart only synchrone no clock 
+
+//streams for DMA
+
+typedef enum{
+
+    dma_circular,
+    dma_normal,
+
+}DMA_Mode_t;
+
+typedef enum {
+
+    spi1_rx_dma,
+    spi1_tx_dma,
+    spi2_rx_dma,
+    spi2_tx_dma,
+    uart4_rx_dma,
+    uart4_tx_dma,
+    uart5_rx_dma,
+    uart5_tx_dma,
+    uart7_rx_dma,
+    uart7_tx_dma,
+    uart8_rx_dma,
+    uart8_tx_dma,
+    usart1_rx_dma,
+    usart1_tx_dma,
+    usart2_rx_dma,
+    usart2_tx_dma,
+    usart3_rx_dma,
+    usart3_tx_dma,
+    usart6_rx_dma,
+    usart6_tx_dma,
+    i2c1_rx_dma,
+    i2c1_tx_dma,
+    i2c2_rx_dma,
+    i2c2_tx_dma,
+    i2c3_rx_dma,
+    i2c3_tx_dma,
+    i2c4_rx_dma,
+    i2c4_tx_dma,
+    i2s1_rx_dma,
+    i2s1_tx_dma,
+    i2s2_rx_dma,
+    i2s2_tx_dma,
+    i2s3_rx_dma,
+    i2s3_tx_dma,
+
+}DMA_Channel_t;
+
+typedef enum {
+
     uart4,
     uart5,
     uart7,
@@ -111,6 +191,8 @@ typedef enum {
     usart6,
 }UART_t;
 
+// I2C peripherals
+
 typedef enum{
 
 	i2c1,
@@ -120,12 +202,16 @@ typedef enum{
 
 }I2C_t;
 
+
+
 typedef enum{
 	BATTERY_CRITIC,
 	BATTERY_LOW,
 	BATTERY_MEDIUM,
 	BATTERY_HIGHT,
 }Battery_level_t;
+
+// Drone states
 
 typedef enum{
 
@@ -151,16 +237,16 @@ typedef struct{
 }GPIO_Init_t;
 
 //GPIO HAL
-void GPIO_Moder_Alternate(GPIO_Init_t * gpio);
-void GPIO_Moder_Clean(GPIO_Init_t * gpio);
+void GPIO_Moder_Alternate(GPIO_Init_t * gpio); // Configure GPIO pin as alternate function
+void GPIO_Moder_Clean(GPIO_Init_t * gpio); // Clear GPIO mode bits for a specific pin
 uint8_t GPIO_Read(GPIO_Init_t * gpio);
-void GPIO_Moder_Output(GPIO_Init_t * gpio);
-void GPIO_Moder_Input(GPIO_Init_t * gpio);
-void GPIO_High(GPIO_Init_t * gpio);
-void GPIO_Low(GPIO_Init_t * gpio);
-void GPIO_Set_Pull(GPIO_Init_t * gpio, GPIO_Pull_t pull_mode);
-void GPIO_Set_OutputType (GPIO_Init_t * gpio, GPIO_OutputType_t output_mode);
-void GPIO_Set_AFR(GPIO_Init_t * gpio);
+void GPIO_Moder_Output(GPIO_Init_t * gpio); // Configure GPIO pin as output
+void GPIO_Moder_Input(GPIO_Init_t * gpio); // Configure GPIO pin as input
+void GPIO_High(GPIO_Init_t * gpio); // Set GPIO pin high
+void GPIO_Low(GPIO_Init_t * gpio); // Set GPIO pin low
+void GPIO_Set_Pull(GPIO_Init_t * gpio, GPIO_Pull_t pull_mode); // Configure GPIO pull-up/pull-down resistors
+void GPIO_Set_OutputType (GPIO_Init_t * gpio, GPIO_OutputType_t output_mode); // Configure GPIO output type (push-pull or open-drain
+void GPIO_Set_AFR(GPIO_Init_t * gpio); // Configure GPIO alternate function register for a specific pin
 //RCC HAL
 void RCC_Enable(RCC_Periphal_t peripheral); // Enable clock for a specific peripheral
 void RCC_Disable(RCC_Periphal_t peripheral); // Disable clock for a specific peripheral
@@ -182,13 +268,14 @@ void UART_Enable(UART_t uart); // Enable UART peripheral
 void UART_Read(UART_t uart, uint8_t *buf, uint8_t size); // Read data from UART
 void UART_Write(UART_t uart, uint8_t *buf, uint8_t size); // Write data to UART
 void UART_DMA_Enable(UART_t uart); // Enable UART DMA for transmission
-//SPI
-void SPI_Init(GPIO_Init_t * sck,GPIO_Init_t * mosi,GPIO_Init_t * miso,GPIO_Init_t * cs);
-void SPI_Enable(SPI_t spi);
-void SPI_DMA(SPI_t spi);
-void SPI_Config(SPI_t spi);
-void SPI_Prescaler(SPI_t spi, PSC_division_t division);
-void SPI_CS_High(GPIO_Init_t *cs);
-void SPI_CS_Low(GPIO_Init_t *cs);
-void SPI_Transfert(SPI_t spi, uint8_t *tx_buff, uint8_t *rx_buff, uint8_t size);
-void SPI_Write(SPI_t spi, uint8_t *buf, uint8_t size);
+//SPI HAL
+void SPI_Init(GPIO_Init_t * sck,GPIO_Init_t * mosi,GPIO_Init_t * miso,GPIO_Init_t * cs); // Initialize SPI peripheral with GPIO configuration
+void SPI_Enable(SPI_t spi); // Enable SPI peripheral
+void SPI_DMA(SPI_t spi); // Enable SPI DMA for transmission
+void SPI_Config(SPI_t spi); // Configure SPI settings (mode, data size, etc.)
+void SPI_Prescaler(SPI_t spi, PSC_division_t division); // Configure SPI prescaler for baud rate control
+void SPI_CS_High(GPIO_Init_t *cs); // Set SPI chip select pin high
+void SPI_CS_Low(GPIO_Init_t *cs); // Set SPI chip select pin low
+void SPI_Transfert(SPI_t spi, uint8_t *tx_buff, uint8_t *rx_buff, uint8_t size); // Perform SPI data transfer (full-duplex)
+void SPI_Write(SPI_t spi, uint8_t *buf, uint8_t size); // Perform SPI write operation
+//DMA HAL

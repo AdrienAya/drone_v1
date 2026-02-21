@@ -3,7 +3,7 @@
 #include "hal.h"
 #include "stm32h753xx.h"
 #include <stdint.h>
-#include "hal_spi.h"
+
 
 static SPI_TypeDef* SPI_Get(SPI_t spi) {
     switch(spi) {

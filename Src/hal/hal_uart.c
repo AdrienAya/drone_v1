@@ -3,7 +3,7 @@
 #include "stm32h753xx.h"
 #include "hal.h"
 #include <stdint.h>
-#include "hal_uart.h"
+
 
 static UART_TypeDef * UART_Get(UART_t uart){
 
