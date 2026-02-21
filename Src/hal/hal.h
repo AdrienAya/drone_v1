@@ -98,6 +98,21 @@ typedef enum {
 
 } RCC_Peripheral_t;
 
+
+typedef enum{
+
+i2c1 = 0b00100001, // I2C1 RX DMA request 33
+i2c2 = 0b00100011, // I2C2 RX DMA request 35
+spi1 = 0b00100101, // SPI1 RX DMA request 37
+spi2 = 0b00100111, // SPI2 RX DMA request 39
+uart4 = 0b00111111, // UART4 RX DMA request 63
+uart5 = 0b01000001, // UART5 RX DMA request 65
+adc1 = 0b00001001, // ADC1 DMA request 9
+
+
+
+}dmamux_request_t;
+
 // SPI peripherals
 
 typedef enum{
