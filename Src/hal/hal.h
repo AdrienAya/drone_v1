@@ -80,7 +80,9 @@ typedef enum {
 
     // AHB1 - DMA, ADC
     RCC_DMA1,       // Bit 0
+    RCC_DMA2,      // Bit 1
     RCC_ADC12,      // Bit 5
+    RCC_DMAMUX1,      // Bit 19
 
     // AHB3 - SDMMC
     RCC_SDMMC1,     // Bit 16
@@ -294,3 +296,7 @@ void SPI_CS_Low(GPIO_Init_t *cs); // Set SPI chip select pin low
 void SPI_Transfert(SPI_t spi, uint8_t *tx_buff, uint8_t *rx_buff, uint8_t size); // Perform SPI data transfer (full-duplex)
 void SPI_Write(SPI_t spi, uint8_t *buf, uint8_t size); // Perform SPI write operation
 //DMA HAL
+void DMA_Init(DMA_Stream_TypeDef * stream, uint32_t * adress, uint32_t * buffer, uint16_t size, uint8_t priority); // Initialize DMA stream with configuration
+void DMA_Start(DMA_Stream_TypeDef * stream, DMA_TypeDef * dma); // Start DMA transfer
+void DMA_Circular_Mode(DMA_Stream_TypeDef * stream); // Enable circular mode for continuous data transfer
+void DMA_dmamux_config(DMAMUX_Channel_TypeDef * channel, dmamux_request_t request);

@@ -30,8 +30,11 @@ void DMA_Init(DMA_Stream_TypeDef * stream, uint32_t * adress, uint32_t * buffer,
 void DMA_Start(DMA_Stream_TypeDef * stream, DMA_TypeDef * dma){
 
     // Enable the DMA stream
-
     if(stream == NULL) return; // Invalid stream
+    if(stream->CR & (1 << 0))return;// DMA stream is already enabled
+       
+    
+   
 
     if(stream == DMA1_Stream0 || stream == DMA2_Stream0){
         // Clear all interrupt flags for DMA1 Stream 1
@@ -43,33 +46,33 @@ void DMA_Start(DMA_Stream_TypeDef * stream, DMA_TypeDef * dma){
         dma->LIFCR |= (0x3F<<6);
         stream->CR |= (1 << 0);
     }
-    else if(stream == DMA1_Stream2 || stream == DMA2_Stream3){
+    else if(stream == DMA1_Stream2 || stream == DMA2_Stream2){
         // Clear all interrupt flags for DMA1 Stream 3
         dma->LIFCR |= (0x3F<<16);
         stream->CR |= (1 << 0);
     }
-    else if(stream == DMA1_Stream3 || stream == DMA2_Stream4){
+    else if(stream == DMA1_Stream3 || stream == DMA2_Stream3){
         // Clear all interrupt flags for DMA1 Stream 4
         dma->LIFCR |= (0x3F<<22);
         stream->CR |= (1 << 0);
     }
-    else if(stream == DMA2_Stream0 || stream == DMA1_Stream0){
+    else if(stream == DMA2_Stream4 || stream == DMA1_Stream4){
         // Clear all interrupt flags for DMA2 Stream 0
         dma->HIFCR |= (0x3F<<0);
         stream->CR |= (1 << 0);
     }
-    else if(stream == DMA2_Stream1 || stream == DMA1_Stream1){
+    else if(stream == DMA2_Stream5 || stream == DMA1_Stream5){
         // Clear all interrupt flags for DMA2 Stream 1
         dma->HIFCR |= (0x3F<<6);
         stream->CR |= (1 << 0);
     }
-    else if(stream == DMA2_Stream2 || stream == DMA1_Stream2){
+    else if(stream == DMA2_Stream6 || stream == DMA1_Stream6){
         // Clear all interrupt flags for DMA2 Stream 2
         dma->HIFCR |= (0x3F<<16);
         stream->CR |= (1 << 0);
     }
 
-    else if(stream == DMA2_Stream4 || stream == DMA1_Stream4){
+    else if(stream == DMA2_Stream7 || stream == DMA1_Stream7){
         // Clear all interrupt flags for DMA2 Stream 3
         dma->HIFCR |= (0x3F<<22);
         stream->CR |= (1 << 0);

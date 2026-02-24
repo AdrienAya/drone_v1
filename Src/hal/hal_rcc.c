@@ -33,6 +33,12 @@ void RCC_Enable(RCC_Periphal_t peripheral){
 	case RCC_DMA1:
 		     RCC->AHB1ENR |= (1<<0);
 		     break;
+	case RCC_DMA2:
+		     RCC->AHB1ENR |= (1<<1);
+		     break;
+	case DMAMUX1:
+			 RCC->AHB1ENR |= (1<<19);
+			 break;
     //   Other
 	case RCC_ADC12:
 			 RCC->AHB1ENR |= (1<<5);
