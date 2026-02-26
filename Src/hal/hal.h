@@ -115,6 +115,15 @@ adc1 = 0b00001001, // ADC1 DMA request 9
 
 }dmamux_request_t;
 
+typedef enum{
+
+    TIM_channel_1, // Corresponds to the first output compare channel of a timer (e.g., TIM1_CH1, TIM2_CH1, etc.)
+    TIM_channel_2, // Corresponds to the second output compare channel of a timer (e.g., TIM1_CH2, TIM2_CH2, etc.)
+    TIM_channel_3, // Corresponds to the third output compare channel of a timer (e.g., TIM1_CH3, TIM2_CH3, etc.)
+    TIM_channel_4, // Corresponds to the fourth output compare channel of a timer (e.g., TIM1_CH4, TIM2_CH4, etc.)
+
+}TIM_Channel_t;
+
 // SPI peripherals
 
 typedef enum{
@@ -263,7 +272,7 @@ void GPIO_High(GPIO_Init_t * gpio); // Set GPIO pin high
 void GPIO_Low(GPIO_Init_t * gpio); // Set GPIO pin low
 void GPIO_Set_Pull(GPIO_Init_t * gpio, GPIO_Pull_t pull_mode); // Configure GPIO pull-up/pull-down resistors
 void GPIO_Set_OutputType (GPIO_Init_t * gpio, GPIO_OutputType_t output_mode); // Configure GPIO output type (push-pull or open-drain
-void GPIO_Set_AFR(GPIO_Init_t * gpio); // Configure GPIO alternate function register for a specific pin
+void GPIO_Set_AFR(GPIO_Init_t * gpio, uint8_t afr); // Configure GPIO alternate function register for a specific pin
 //RCC HAL
 void RCC_Enable(RCC_Periphal_t peripheral); // Enable clock for a specific peripheral
 void RCC_Disable(RCC_Periphal_t peripheral); // Disable clock for a specific peripheral
@@ -300,3 +309,10 @@ void DMA_Init(DMA_Stream_TypeDef * stream, uint32_t * adress, uint32_t * buffer,
 void DMA_Start(DMA_Stream_TypeDef * stream, DMA_TypeDef * dma); // Start DMA transfer
 void DMA_Circular_Mode(DMA_Stream_TypeDef * stream); // Enable circular mode for continuous data transfer
 void DMA_dmamux_config(DMAMUX_Channel_TypeDef * channel, dmamux_request_t request);
+// Timer HAL
+void TIM_PWM_Stop(TIM_TypeDef * tim); // Stop PWM output on a timer
+void TIM_Stop(TIM_TypeDef * tim); // Stop timer counting
+void TIM_PWM_Init(TIM_TypeDef * tim, uint16_t psc, uint16_t arr); // Initialize timer for PWM output with specified prescaler and auto-reload values
+void TIM_PWM_Duty(TIM_TypeDef * tim,TIM_Channel_t channel, uint16_t duty); // Set PWM duty cycle for a specific timer channel
+void TIM_PWM_Start(TIM_TypeDef * tim); // Start PWM output on a timer
+void TIM_Start(TIM_TypeDef * tim); // Start timer counting

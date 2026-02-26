@@ -6,7 +6,6 @@
 
 
 
-
 void GPIO_Moder_Clean(GPIO_Init_t * gpio){
 
 	gpio->GPIO->MODER &= ~(0b11<<gpio->PIN * 2);
@@ -71,10 +70,10 @@ void GPIO_Set_OutputType (GPIO_Init_t * gpio, GPIO_OutputType_t output_mode){
 	}
 }
 
-void GPIO_Set_AFR(GPIO_Init_t * gpio){
+void GPIO_Set_AFR(GPIO_Init_t * gpio, uint8_t afr){
 
-	gpio->GPIO->AFR[4] &= ~((4<<(gpio->PIN-8)*4));
-	gpio->GPIO->AFR[4] |= ((4<<(gpio->PIN-8)*4));
+	gpio->GPIO->AFR[afr] &= ~((4<<(gpio->PIN-8)*4));
+	gpio->GPIO->AFR[afr] |= ((4<<(gpio->PIN-8)*4));
 
 }
 
